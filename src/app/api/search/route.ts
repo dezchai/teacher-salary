@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import fs from "fs";
 import Fuse from "fuse.js";
 import data from "./db.json";
 
