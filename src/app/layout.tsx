@@ -1,5 +1,7 @@
 import Footer from "@/components/Footer";
+import Header from "@/components/Header";
 import { Providers } from "./providers";
+import "./globals.css";
 
 export const metadata = {
   title: "Teacher Salary",
@@ -14,14 +16,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <link rel="icon" href="/favicon.ico" />
-      <div className="flex flex-col min-h-screen">
-        <main className="flex-grow">
-          {/* NEXTJS WILL NOT COMPILE WITHOUT BODY TAG */}
-          <Providers>{children}</Providers>
-          <body className="hidden"></body>
-        </main>
-        <Footer />
-      </div>
+      <body className="flex flex-col items-center justify-center h-screen">
+        <Providers>
+          <div className="flex flex-col items-center justify-start flex-grow">
+            <Header />
+            {children}
+          </div>
+          <Footer />
+        </Providers>
+      </body>
     </html>
   );
 }
