@@ -14,7 +14,10 @@ const searchOptions = {
 const fuse = new Fuse(data as Array<any>, searchOptions);
 
 export const POST = async (request: Request) => {
+  const startTime = performance.now();
   const { query } = await request.json();
   const result = fuse.search(query).slice(0, 50);
-  return NextResponse.json({ results: result });
+  const endTime = performance.now();
+  const duration = ((endTime - startTime) / 1000).toFixed(2);
+  return NextResponse.json({ speed: duration, results: result });
 };

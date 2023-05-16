@@ -1,23 +1,8 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { TextField, Button } from "@material-ui/core";
-import { Table, TableBody, TableCell, TableRow } from "@material-ui/core";
 import useDebounce from "../hooks/useDebounce";
 import Result from "../interfaces/Result";
 import axios from "axios";
-import { isMobile } from "react-device-detect";
-
-// const useStyles = makeStyles(() =>
-//   createStyles({
-//     root: {
-//       display: "flex",
-//       alignItems: "center",
-//     },
-//     textField: {
-//       marginRight: "1rem",
-//     },
-//   })
-// );
 
 const formatter = new Intl.NumberFormat("en-US", {
   style: "currency",
@@ -29,16 +14,15 @@ const formatter = new Intl.NumberFormat("en-US", {
 });
 
 const SearchBar: React.FC = () => {
-  // State for the search bar component
   const [searchTerm, setSearchTerm] = useState("");
   const [results, setResults] = useState<Result[]>([]);
+  const [searchSpeed, setSearchSpeed] = useState(0);
   const [hasFetched, setHasFetched] = useState(false);
   const debouncedValue = useDebounce<string>(searchTerm, 500);
 
   const fetchAPI = async () => {
     if (searchTerm.trim().length === 0) return;
     console.log(`Searching for: ${searchTerm}`);
-
     const resp = await axios.post("/api/search", { query: searchTerm });
     if (resp.data.results.length === 0) {
       setHasFetched(true);
@@ -46,6 +30,7 @@ const SearchBar: React.FC = () => {
       return;
     }
     setResults(resp.data.results.map((r: any) => r.item));
+    setSearchSpeed(resp.data.speed);
     setHasFetched(true);
   };
 
@@ -66,8 +51,8 @@ const SearchBar: React.FC = () => {
   };
 
   return (
-    <>
-      <form
+    <div className="">
+      {/* <form
         onSubmit={handleSubmit}
         className="flex items-center"
         style={{
@@ -84,57 +69,73 @@ const SearchBar: React.FC = () => {
         <Button variant="contained" type="submit">
           Search
         </Button>
+      </form> */}
+      <form
+        onSubmit={handleSubmit}
+        className="flex items-center justify-center"
+      >
+        <div className="form-group relative">
+          <input
+            type="text"
+            id="search"
+            className="form-field border-b-2 border-gray-300 focus:border-blue-500 focus:outline-none py-2 px-3 w-full"
+            placeholder="Search"
+            value={searchTerm}
+            onChange={handleChange}
+          />
+          {/* <label
+            htmlFor="search"
+            className="form-label absolute top-0 left-0 text-gray-500 text-sm transition-all duration-200 ease-in-out"
+          >
+            Search
+          </label> */}
+        </div>
+        <button
+          type="submit"
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-4"
+        >
+          Search
+        </button>
       </form>
 
       {results.length === 0 && hasFetched && searchTerm.trim() !== "" && (
         <div className="flex">
-          <h1 className="flexjustify-center text-2xl mx-auto my-3">
-            Zero Results
-          </h1>
+          <h1 className="flex justify-center text-2xl mx-auto">Zero Results</h1>
         </div>
       )}
-      <div
-        style={
-          isMobile
-            ? {
-                margin: "0 auto",
-                marginTop: "7vh",
-                display: "flex",
-                justifyContent: "center",
-                padding: "12px",
-              }
-            : {
-                margin: "0 auto",
-                marginTop: "7vh",
-                display: "flex",
-                justifyContent: "center",
-                padding: "12px",
-                maxWidth: "35vw",
-              }
-        }
-      >
-        <Table>
-          <TableBody>
-            <TableRow>
-              <TableCell>School</TableCell>
-              <TableCell>Name</TableCell>
-              <TableCell>Salary</TableCell>
-            </TableRow>
+      {results.length !== 0 && hasFetched && (
+        <h1 className="text-center">
+          Found {results.length} {results.length === 1 ? "result" : "results"}{" "}
+          in {searchSpeed} seconds
+        </h1>
+      )}
+      <div className="flex justify-center ">
+        <table className="max-w-[90%] md:max-w-[90%] md:w-full lg:max-w-[35%] lg:w-full items-center justify-center">
+          <tbody className="m-2">
+            <tr className="">
+              <th className="border px-4 py-2">School</th>
+              <th className="border px-4 py-2">Name</th>
+              <th className="border px-4 py-2">Salary</th>
+            </tr>
             {results.map((result: Result) => (
-              <TableRow key={result.School + result.Name + result.Salary}>
-                <TableCell>{result.School}</TableCell>
-                <TableCell>
+              <tr key={result.School + result.Name + result.Salary}>
+                <td className="border px-2 py-2 text-center">
+                  {result.School}
+                </td>
+                <td className="border px-2  py-2 text-center">
                   {result.Name.split(",")[1].trim() +
                     " " +
                     result.Name.split(",")[0]}
-                </TableCell>
-                <TableCell>{formatter.format(result.Salary)}</TableCell>
-              </TableRow>
+                </td>
+                <td className="border py-2  text-center">
+                  {formatter.format(result.Salary)}
+                </td>
+              </tr>
             ))}
-          </TableBody>
-        </Table>
+          </tbody>
+        </table>
       </div>
-    </>
+    </div>
   );
 };
 
