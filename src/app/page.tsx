@@ -17,9 +17,9 @@ function App() {
   </div> */
   }
   return (
-    <>
+    <div className="w-full">
       <SearchBar />
-    </>
+    </div>
   );
 }
 

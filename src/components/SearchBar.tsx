@@ -79,9 +79,7 @@ const SearchBar: React.FC = () => {
         </form>
       </div>
       {results.length === 0 && hasFetched && searchTerm.trim() !== "" && (
-        <div className="flex">
-          <h1 className="flex justify-center text-2xl mx-auto">Zero Results</h1>
-        </div>
+        <h1 className="text-center">Zero Results</h1>
       )}
       {results.length !== 0 && hasFetched && (
         <h1 className="text-center">
@@ -107,7 +105,7 @@ const SearchBar: React.FC = () => {
                     " " +
                     result.Name.split(",")[0]}
                 </td>
-                <td className="border py-2  text-center">
+                <td className="border px-2 py-2  text-center">
                   {formatter.format(result.Salary)}
                 </td>
               </tr>
