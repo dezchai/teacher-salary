@@ -1,6 +1,6 @@
 const About = () => {
   return (
-    <div className="">
+    <div className="p-4">
       <h2 className="text-3xl font-bold">About</h2>
       <p className="text-xl mx-auto min-w-xl max-w-4xl">
         Ever wanted to know how much your teacher makes? Well, now you can! This

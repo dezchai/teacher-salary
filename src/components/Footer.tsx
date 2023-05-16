@@ -2,7 +2,7 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="flex flex-row items-center justify-center rounded-xl w-60 flex-shrink-0 mb-1">
+    <footer className="flex flex-row items-center justify-center rounded-xl w-60 flex-shrink-0 mb-3">
       <a
         href="/about"
         className="text-center dark:text-white light:text-black m-2 hover:text-blue-500"
