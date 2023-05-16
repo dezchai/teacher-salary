@@ -16,7 +16,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <link rel="icon" href="/favicon.ico" />
-      <body className="flex flex-col items-center justify-center min-h-screen">
+      <body className="flex flex-col items-center supports-[height:100cqh]:h-[100cqh] supports-[height:100svh]:h-[100svh]">
         <Providers>
           <div className="flex flex-col items-center justify-start flex-grow w-full">
             <Header />
