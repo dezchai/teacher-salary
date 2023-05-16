@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import useDebounce from "../hooks/useDebounce";
 import Result from "../interfaces/Result";
 import axios from "axios";
+import DarkModeSwitcher from "@components/DarkModeSwitcher";
 
 const formatter = new Intl.NumberFormat("en-US", {
   style: "currency",
@@ -52,52 +53,31 @@ const SearchBar: React.FC = () => {
 
   return (
     <div className="">
-      {/* <form
-        onSubmit={handleSubmit}
-        className="flex items-center"
-        style={{
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
-        <TextField
-          className="mr-4"
-          label="Search"
-          value={searchTerm}
-          onChange={handleChange}
-        />
-        <Button variant="contained" type="submit">
-          Search
-        </Button>
-      </form> */}
-      <form
-        onSubmit={handleSubmit}
-        className="flex items-center justify-center"
-      >
-        <div className="form-group relative">
-          <input
-            type="text"
-            id="search"
-            className="form-field border-b-2 border-gray-300 focus:border-blue-500 focus:outline-none py-2 px-3 w-full"
-            placeholder="Search"
-            value={searchTerm}
-            onChange={handleChange}
-          />
-          {/* <label
-            htmlFor="search"
-            className="form-label absolute top-0 left-0 text-gray-500 text-sm transition-all duration-200 ease-in-out"
+      <div className="flex flex-row items-center justify-center">
+        <DarkModeSwitcher />
+        <form
+          onSubmit={handleSubmit}
+          autoComplete="off"
+          className="flex items-center justify-center p-2"
+        >
+          <div className="form-group relative">
+            <input
+              type="text"
+              id="search"
+              className="form-field border-b-2 border-gray-300 focus:border-blue-500 focus:outline-none py-2 px-3 w-full"
+              placeholder="Search"
+              value={searchTerm}
+              onChange={handleChange}
+            />
+          </div>
+          <button
+            type="submit"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2"
           >
             Search
-          </label> */}
-        </div>
-        <button
-          type="submit"
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-4"
-        >
-          Search
-        </button>
-      </form>
-
+          </button>
+        </form>
+      </div>
       {results.length === 0 && hasFetched && searchTerm.trim() !== "" && (
         <div className="flex">
           <h1 className="flex justify-center text-2xl mx-auto">Zero Results</h1>

@@ -1,4 +1,5 @@
 import Footer from "@/components/Footer";
+import { Providers } from "./providers";
 
 export const metadata = {
   title: "Teacher Salary",
@@ -16,8 +17,8 @@ export default function RootLayout({
       <div className="flex flex-col min-h-screen">
         <main className="flex-grow">
           {/* NEXTJS WILL NOT COMPILE WITHOUT BODY TAG */}
-          <body></body>
-          {children}
+          <Providers>{children}</Providers>
+          <body className="hidden"></body>
         </main>
         <Footer />
       </div>
