@@ -24,8 +24,9 @@ const About = () => {
         <a
           href="https://vancouversun.com/news/local-news/bc-public-sector-salaries-database-sunshine-list"
           target="blank"
+          className=" text-blue-600 dark:text-blue-500 hover:underline"
         >
-          something similar
+          something similar.
         </a>
         Their database covers all public servants but also contains outdated
         data for certain districts/institutions. Nathan had told me that from
