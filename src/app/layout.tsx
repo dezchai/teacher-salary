@@ -15,7 +15,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <link rel="icon" href="/favicon.ico" />
       <body className="flex flex-col items-center supports-[height:100cqh]:h-[100cqh] supports-[height:100svh]:h-[100svh]">
         <Providers>
